@@ -33,7 +33,7 @@ jobs:
 
     # 7. (Opcional) Publica el build de scratch-vm como artefacto
     - name: Upload scratch-vm build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: scratch-vm-build
         path: dist
