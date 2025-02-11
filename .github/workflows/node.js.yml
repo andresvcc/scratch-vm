@@ -18,7 +18,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
+        node-version: '14.x'
 
     # 3. Instala dependencias y ejecuta el build de scratch-vm
     - name: Install and build scratch-vm
