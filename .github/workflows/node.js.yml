@@ -1,0 +1,39 @@
+name: Build scratch-vm and update scratch-gui dependency
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_update:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Clona tu repositorio de scratch-vm (este es el repositorio actual)
+    - name: Checkout scratch-vm
+      uses: actions/checkout@v3
+
+    # 2. Configura Node.js (asegúrate de usar la versión requerida, aquí se usa la 16.x)
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    # 3. Instala dependencias y ejecuta el build de scratch-vm
+    - name: Install and build scratch-vm
+      run: |
+        npm install
+        npm run build
+
+    # 4. Obtén el hash del commit actual (en versión corta)
+    - name: Get current commit hash
+      id: get_hash
+      run: echo "::set-output name=commit_hash::$(git rev-parse --short HEAD)"
+
+    # 7. (Opcional) Publica el build de scratch-vm como artefacto
+    - name: Upload scratch-vm build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: scratch-vm-build
+        path: dist
